@@ -1,36 +1,16 @@
-# Eclipse stuff
+#Gradle
+.gradle/
+build/
+
+# Eclipse
 .classpath
 .project
 .settings/
-
-# netbeans
-nbproject/
-nbactions.xml
-
-# we use maven!
-build.xml
-
-# maven
-target/
-dependency-reduced-pom.xml
-
-# vim
-.*.sw[a-p]
-
-# various other potential build files
-build/
 bin/
-dist/
-manifest.mf
 
-# Mac filesystem dust
-.DS_Store/
-
-# intellij
-*.iml
-*.ipr
-*.iws
+# IntelliJ IDEA
 .idea/
-
-# other files
-*.log*
+out/
+*.iml
+*.iws
+*.ipr
