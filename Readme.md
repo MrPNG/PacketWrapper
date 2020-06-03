@@ -1,4 +1,4 @@
-# PacketWrapper
+# PacketWrapper [![](https://jitpack.io/v/MrPNG/PacketWrapper.svg)](https://jitpack.io/#MrPNG/PacketWrapper)
 
 This is the official continuation of PacketWrapper by dmulloy2. The original version can be found [here](https://github.com/aadnk/PacketWrapper).
 
