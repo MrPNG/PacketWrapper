@@ -18,31 +18,39 @@
  */
 package com.comphenix.packetwrapper;
 
-import java.util.Map;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedStatistic;
+import com.comphenix.protocol.wrappers.EnumWrappers.Hand;
 
-public class WrapperPlayServerStatistics extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.STATISTICS;
+public class WrapperPlayServerOpenBook extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Server.OPEN_BOOK;
     
-    public WrapperPlayServerStatistics() {
+    public WrapperPlayServerOpenBook() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayServerStatistics(PacketContainer packet) {
+    public WrapperPlayServerOpenBook(PacketContainer packet) {
         super(packet, TYPE);
     }
     
-    @SuppressWarnings("unchecked")
-    public Map<WrappedStatistic, Integer> getStatistics() {
-        return handle.getSpecificModifier(Map.class).read(0);
+    /**
+     * Retrieve Hand.
+     * <p>
+     * Notes: 0: Main hand, 1: Off hand
+     * @return The current Hand
+     */
+    public Hand getHand() {
+        return handle.getHands().read(0);
     }
-
-    public void setStatistics(Map<WrappedStatistic, Integer> value) {
-        handle.getSpecificModifier(Map.class).write(0, value);
+    
+    /**
+     * Set Hand.
+     * @param value - new value.
+     */
+    public void setHand(Hand value) {
+        handle.getHands().write(0, value);
     }
+    
 }
-

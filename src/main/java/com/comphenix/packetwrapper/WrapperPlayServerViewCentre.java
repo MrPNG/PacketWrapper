@@ -21,71 +21,53 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
-public class WrapperPlayServerCraftProgressBar extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.CRAFT_PROGRESS_BAR;
+public class WrapperPlayServerViewCentre extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Server.VIEW_CENTRE;
     
-    public WrapperPlayServerCraftProgressBar() {
+    public WrapperPlayServerViewCentre() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayServerCraftProgressBar(PacketContainer packet) {
+    public WrapperPlayServerViewCentre(PacketContainer packet) {
         super(packet, TYPE);
     }
     
     /**
-     * Retrieve Window ID.
+     * Retrieve Chunk X.
      * <p>
-     * Notes: the id of the window.
-     * @return The current Window ID
+     * Notes: chunk X coordinate of the player's position
+     * @return The current Chunk X
      */
-    public int getWindowId() {
+    public int getChunkX() {
         return handle.getIntegers().read(0);
     }
     
     /**
-     * Set Window ID.
+     * Set Chunk X.
      * @param value - new value.
      */
-    public void setWindowId(int value) {
+    public void setChunkX(int value) {
         handle.getIntegers().write(0, value);
     }
     
     /**
-     * Retrieve Property.
+     * Retrieve Chunk Z.
      * <p>
-     * Notes: which property should be updated.
-     * @return The current Property
+     * Notes: chunk Z coordinate of the player's position
+     * @return The current Chunk Z
      */
-    public int getProperty() {
+    public int getChunkZ() {
         return handle.getIntegers().read(1);
     }
     
     /**
-     * Set Property.
+     * Set Chunk Z.
      * @param value - new value.
      */
-    public void setProperty(int value) {
+    public void setChunkZ(int value) {
         handle.getIntegers().write(1, value);
     }
     
-    /**
-     * Retrieve Value.
-     * <p>
-     * Notes: the new value for the property.
-     * @return The current Value
-     */
-    public int getValue() {
-        return handle.getIntegers().read(2);
-    }
-    
-    /**
-     * Set Value.
-     * @param value - new value.
-     */
-    public void setValue(int value) {
-        handle.getIntegers().write(2, value);
-    }
-    
 }
-

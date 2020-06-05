@@ -21,15 +21,34 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
-public class WrapperStatusClientInStart extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Status.Client.START;
+public class WrapperPlayServerAutoRecipe extends AbstractPacket {
 
-    public WrapperStatusClientInStart() {
+    public static final PacketType TYPE = PacketType.Play.Server.AUTO_RECIPE;
+    
+    public WrapperPlayServerAutoRecipe() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
-
-    public WrapperStatusClientInStart(PacketContainer packet) {
+    
+    public WrapperPlayServerAutoRecipe(PacketContainer packet) {
         super(packet, TYPE);
     }
+    
+    /**
+     * Retrieve Window ID.
+     * @return The current Window ID
+     */
+    public int getWindowId() {
+        return handle.getIntegers().read(0);
+    }
+    
+    /**
+     * Set Window ID.
+     * @param value - new value.
+     */
+    public void setWindowId(int value) {
+        handle.getIntegers().write(0, value);
+    }
+    
+    // Wrapper for recipe can be created upon request
 }

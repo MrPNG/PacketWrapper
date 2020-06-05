@@ -21,35 +21,35 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
-public class WrapperStatusServerOutPing extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Status.Server.PONG;
+public class WrapperPlayClientPickItem extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Client.PICK_ITEM;
     
-    public WrapperStatusServerOutPing() {
+    public WrapperPlayClientPickItem() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperStatusServerOutPing(PacketContainer packet) {
+    public WrapperPlayClientPickItem(PacketContainer packet) {
         super(packet, TYPE);
     }
     
     /**
-     * Retrieve Time.
+     * Retrieve Slot to use.
      * <p>
-     * Notes: should be the same as sent by the client
-     * @return The current Time
+     * Notes: see Inventory
+     * @return The current Slot to use
      */
-    public long getTime() {
-        return handle.getLongs().read(0);
+    public int getSlotToUse() {
+        return handle.getIntegers().read(0);
     }
     
     /**
-     * Set Time.
+     * Set Slot to use.
      * @param value - new value.
      */
-    public void setTime(long value) {
-        handle.getLongs().write(0, value);
+    public void setSlotToUse(int value) {
+        handle.getIntegers().write(0, value);
     }
     
 }
-

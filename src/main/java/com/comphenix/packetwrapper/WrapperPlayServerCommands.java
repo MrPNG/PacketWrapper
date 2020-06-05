@@ -20,36 +20,30 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import com.mojang.brigadier.tree.RootCommandNode;
 
-public class WrapperPlayServerSetCompression extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.SET_COMPRESSION;
+public class WrapperPlayServerCommands extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Server.COMMANDS;
     
-    public WrapperPlayServerSetCompression() {
+    public WrapperPlayServerCommands() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayServerSetCompression(PacketContainer packet) {
+    public WrapperPlayServerCommands(PacketContainer packet) {
         super(packet, TYPE);
     }
-    
-    /**
-     * Retrieve Threshold.
-     * <p>
-     * Notes: threshold is the max size of a packet before its compressed
-     * @return The current Threshold
-     */
-    public int getThreshold() {
-        return handle.getIntegers().read(0);
-    }
-    
-    /**
-     * Set Threshold.
-     * @param value - new value.
-     */
-    public void setThreshold(int value) {
-        handle.getIntegers().write(0, value);
-    }
-    
-}
 
+    /**
+     * Mojang's brigadier library isn't versioned inside craftbukkit,
+     * so it should be safe to use here.
+     */
+    public RootCommandNode getRoot() {
+        return (RootCommandNode) handle.getModifier().read(0);
+    }
+
+    public void setRoot(RootCommandNode node) {
+        handle.getModifier().write(0, node);
+    }
+}

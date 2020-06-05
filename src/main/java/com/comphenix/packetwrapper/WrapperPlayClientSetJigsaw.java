@@ -21,24 +21,25 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
-import com.comphenix.protocol.wrappers.WrappedChatComponent;
+import com.comphenix.protocol.wrappers.MinecraftKey;
 
-public class WrapperPlayServerUpdateSign extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.UPDATE_SIGN;
+public class WrapperPlayClientSetJigsaw extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Client.SET_JIGSAW;
     
-    public WrapperPlayServerUpdateSign() {
+    public WrapperPlayClientSetJigsaw() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayServerUpdateSign(PacketContainer packet) {
+    public WrapperPlayClientSetJigsaw(PacketContainer packet) {
         super(packet, TYPE);
     }
     
     /**
      * Retrieve Location.
      * <p>
-     * Notes: block Coordinates
+     * Notes: block entity location
      * @return The current Location
      */
     public BlockPosition getLocation() {
@@ -54,23 +55,53 @@ public class WrapperPlayServerUpdateSign extends AbstractPacket {
     }
     
     /**
-     * Retrieve this sign's lines of text represented by a chat component array.
-     * @return The current lines
+     * Retrieve Attachment type.
+     * @return The current Attachment type
      */
-    public WrappedChatComponent[] getLines() {
-        return handle.getChatComponentArrays().read(0);
+    public MinecraftKey getAttachmentType() {
+        return handle.getMinecraftKeys().read(0);
     }
     
     /**
-     * Set this sign's lines of text.
-     * @param value - Lines, must be 4 elements long
+     * Set Attachment type.
+     * @param value - new value.
      */
-    public void setLines(WrappedChatComponent[] value) {
-        if (value == null)
-            throw new IllegalArgumentException("value cannot be null!");
-        if (value.length != 4)
-            throw new IllegalArgumentException("value must have 4 elements!");
-
-        handle.getChatComponentArrays().write(0, value);
+    public void setAttachmentType(MinecraftKey value) {
+        handle.getMinecraftKeys().write(0, value);
     }
+    
+    /**
+     * Retrieve Target pool.
+     * @return The current Target pool
+     */
+    public MinecraftKey getTargetPool() {
+        return handle.getMinecraftKeys().read(1);
+    }
+    
+    /**
+     * Set Target pool.
+     * @param value - new value.
+     */
+    public void setTargetPool(MinecraftKey value) {
+        handle.getMinecraftKeys().write(1, value);
+    }
+    
+    /**
+     * Retrieve Final state.
+     * <p>
+     * Notes: "Turns into" on the GUI, final_state in NBT
+     * @return The current Final state
+     */
+    public String getFinalState() {
+        return handle.getStrings().read(0);
+    }
+    
+    /**
+     * Set Final state.
+     * @param value - new value.
+     */
+    public void setFinalState(String value) {
+        handle.getStrings().write(0, value);
+    }
+    
 }

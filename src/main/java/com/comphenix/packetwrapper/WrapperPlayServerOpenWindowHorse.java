@@ -18,75 +18,90 @@
  */
 package com.comphenix.packetwrapper;
 
-import org.bukkit.World;
-import org.bukkit.entity.Entity;
-
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.events.PacketEvent;
-import com.comphenix.protocol.wrappers.nbt.NbtBase;
 
-public class WrapperPlayServerUpdateEntityNbt extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.UPDATE_ENTITY_NBT;
+import org.bukkit.World;
+import org.bukkit.entity.Entity;
 
-    public WrapperPlayServerUpdateEntityNbt() {
+public class WrapperPlayServerOpenWindowHorse extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Server.OPEN_WINDOW_HORSE;
+    
+    public WrapperPlayServerOpenWindowHorse() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
-
-    public WrapperPlayServerUpdateEntityNbt(PacketContainer packet) {
+    
+    public WrapperPlayServerOpenWindowHorse(PacketContainer packet) {
         super(packet, TYPE);
     }
-
+    
     /**
-     * Retrieve Entity ID.
-     * <p>
-     * Notes: entity's ID
-     * @return The current Entity ID
+     * Retrieve Window ID?.
+     * @return The current Window ID?
      */
-    public int getEntityID() {
+    public int getWindowId() {
         return handle.getIntegers().read(0);
     }
-
+    
     /**
-     * Set Entity ID.
+     * Set Window ID?.
      * @param value - new value.
      */
-    public void setEntityID(int value) {
+    public void setWindowId(int value) {
         handle.getIntegers().write(0, value);
     }
-
+    
     /**
-     * Retrieve the entity of the painting that will be spawned.
+     * Retrieve Number of slots?.
+     * @return The current Number of slots?
+     */
+    public int getNumberOfSlots() {
+        return handle.getIntegers().read(1);
+    }
+    
+    /**
+     * Set Number of slots?.
+     * @param value - new value.
+     */
+    public void setNumberOfSlots(int value) {
+        handle.getIntegers().write(1, value);
+    }
+    
+    /**
+     * Retrieve Entity ID?.
+     * @return The current Entity ID?
+     */
+    public int getEntityID() {
+        return handle.getIntegers().read(2);
+    }
+    
+    /**
+     * Retrieve the entity involved in this event.
      * @param world - the current world of the entity.
-     * @return The spawned entity.
+     * @return The involved entity.
      */
     public Entity getEntity(World world) {
-        return handle.getEntityModifier(world).read(0);
+        return handle.getEntityModifier(world).read(2);
     }
-
+    
     /**
-     * Retrieve the entity of the painting that will be spawned.
+     * Retrieve the entity involved in this event.
      * @param event - the packet event.
-     * @return The spawned entity.
+     * @return The involved entity.
      */
     public Entity getEntity(PacketEvent event) {
         return getEntity(event.getPlayer().getWorld());
     }
-
+    
     /**
-     * Retrieve Tag.
-     * @return The current Tag
-     */
-    public NbtBase<?> getTag() {
-        return handle.getNbtModifier().read(0);
-    }
-
-    /**
-     * Set Tag.
+     * Set Entity ID?.
      * @param value - new value.
      */
-    public void setTag(NbtBase<?> value) {
-        handle.getNbtModifier().write(0, value);
+    public void setEntityID(int value) {
+        handle.getIntegers().write(2, value);
     }
+    
 }

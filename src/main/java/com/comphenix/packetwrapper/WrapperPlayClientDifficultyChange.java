@@ -20,37 +20,37 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.BlockPosition;
+import com.comphenix.protocol.wrappers.EnumWrappers.Difficulty;
 
-public class WrapperPlayServerOpenSignEntity extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Play.Server.OPEN_SIGN_ENTITY;
+public class WrapperPlayClientDifficultyChange extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Play.Client.DIFFICULTY_CHANGE;
     
-    public WrapperPlayServerOpenSignEntity() {
+    public WrapperPlayClientDifficultyChange() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperPlayServerOpenSignEntity(PacketContainer packet) {
+    public WrapperPlayClientDifficultyChange(PacketContainer packet) {
         super(packet, TYPE);
     }
     
     /**
-     * Retrieve Location.
+     * Retrieve New difficulty.
      * <p>
-     * Notes: block coordinates
-     * @return The current Location
+     * Notes: 0: peaceful, 1: easy, 2: normal, 3: hard
+     * @return The current New difficulty
      */
-    public BlockPosition getLocation() {
-        return handle.getBlockPositionModifier().read(0);
+    public Difficulty getNewDifficulty() {
+        return handle.getDifficulties().read(0);
     }
     
     /**
-     * Set Location.
+     * Set New difficulty.
      * @param value - new value.
      */
-    public void setLocation(BlockPosition value) {
-        handle.getBlockPositionModifier().write(0, value);
+    public void setNewDifficulty(Difficulty value) {
+        handle.getDifficulties().write(0, value);
     }
     
 }
-

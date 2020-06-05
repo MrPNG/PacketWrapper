@@ -21,33 +21,46 @@ package com.comphenix.packetwrapper;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 
-public class WrapperStatusClientInPing extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Status.Client.PING;
+public class WrapperPlayClientRecipeDisplayed extends AbstractPacket {
+    public static final PacketType TYPE = PacketType.Play.Client.RECIPE_DISPLAYED;
     
-    public WrapperStatusClientInPing() {
+    public WrapperPlayClientRecipeDisplayed() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperStatusClientInPing(PacketContainer packet) {
+    public WrapperPlayClientRecipeDisplayed(PacketContainer packet) {
         super(packet, TYPE);
     }
-    
-    /**
-     * Retrieve Time.
-     * @return The current Time
-     */
-    public long getTime() {
-        return handle.getLongs().read(0);
-    }
-    
-    /**
-     * Set Time.
-     * @param value - new value.
-     */
-    public void setTime(long value) {
-        handle.getLongs().write(0, value);
-    }
-    
-}
 
+    public Status getStatus() {
+        return handle.getEnumModifier(Status.class, 0).readSafely(0);
+    }
+
+    public void setStatus(Status value) {
+        handle.getEnumModifier(Status.class, 0).writeSafely(0, value);
+    }
+
+    // Modifier for recipe can be created upon request
+
+    public boolean isBookOpen() {
+        return handle.getBooleans().read(0);
+    }
+
+    public void setBookOpen(boolean value) {
+        handle.getBooleans().write(0, value);
+    }
+
+    public boolean isFilterActive() {
+        return handle.getBooleans().read(1);
+    }
+
+    public void setFilterActive(boolean value) {
+        handle.getBooleans().write(1, value);
+    }
+
+    public enum Status {
+        SHOWN,
+        SETTINGS;
+    }
+}

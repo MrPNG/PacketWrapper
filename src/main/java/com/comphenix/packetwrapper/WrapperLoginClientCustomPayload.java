@@ -20,37 +20,38 @@ package com.comphenix.packetwrapper;
 
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
-import com.comphenix.protocol.wrappers.WrappedServerPing;
 
-public class WrapperStatusServerOutServerInfo extends AbstractPacket {
-    public static final PacketType TYPE = PacketType.Status.Server.OUT_SERVER_INFO;
+public class WrapperLoginClientCustomPayload extends AbstractPacket {
+
+    public static final PacketType TYPE = PacketType.Login.Client.CUSTOM_PAYLOAD;
     
-    public WrapperStatusServerOutServerInfo() {
+    public WrapperLoginClientCustomPayload() {
         super(new PacketContainer(TYPE), TYPE);
         handle.getModifier().writeDefaults();
     }
     
-    public WrapperStatusServerOutServerInfo(PacketContainer packet) {
+    public WrapperLoginClientCustomPayload(PacketContainer packet) {
         super(packet, TYPE);
     }
     
     /**
-     * Retrieve JSON Response.
+     * Retrieve Message ID.
      * <p>
-     * Notes: https://gist.github.com/thinkofdeath/6927216
-     * @return The current JSON Response
+     * Notes: should match ID from server.
+     * @return The current Message ID
      */
-    public WrappedServerPing getJsonResponse() {
-        return handle.getServerPings().read(0);
+    public int getMessageId() {
+        return handle.getIntegers().read(0);
     }
     
     /**
-     * Set JSON Response.
+     * Set Message ID.
      * @param value - new value.
      */
-    public void setJsonResponse(WrappedServerPing value) {
-        handle.getServerPings().write(0, value);
+    public void setMessageId(int value) {
+        handle.getIntegers().write(0, value);
     }
     
+    // Cannot find type for b
+    // Cannot find type for b
 }
-
